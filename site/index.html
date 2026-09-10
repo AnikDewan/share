@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#12100e" />
+    <meta
+      name="description"
+      content="Private drop. Notes and files go straight to Telegram."
+    />
+    <title>Share</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+
+    <main class="shell">
+      <header class="top">
+        <div class="brand">
+          <span class="mark" aria-hidden="true"></span>
+          <span>Share</span>
+        </div>
+        <p class="tag">Private drop to Telegram</p>
+      </header>
+
+      <section id="setup" class="panel hidden" aria-labelledby="setup-title">
+        <h1 id="setup-title">Not configured yet</h1>
+        <p>
+          This GitHub Pages site needs two Actions secrets, then a redeploy.
+        </p>
+        <ol class="steps">
+          <li><code>SITE_PASSWORD</code> — the passphrase for this page</li>
+          <li><code>WEBHOOK_URL</code> — your bot server’s <code>/send</code> URL</li>
+        </ol>
+        <p class="hint">
+          The bot token never lives here. Keep it on the machine that hosts the
+          bot.
+        </p>
+      </section>
+
+      <section id="gate" class="panel hidden" aria-labelledby="gate-title">
+        <h1 id="gate-title">Enter the password</h1>
+        <p>This page is locked. The same password is checked again by your bot.</p>
+        <form id="gate-form" autocomplete="on">
+          <label class="field">
+            <span>Password</span>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required
+              autofocus
+            />
+          </label>
+          <button type="submit" class="btn">Unlock</button>
+          <p id="gate-error" class="error" role="alert"></p>
+        </form>
+      </section>
+
+      <section id="drop" class="panel hidden" aria-labelledby="drop-title">
+        <div class="drop-head">
+          <h1 id="drop-title">Send a drop</h1>
+          <button id="lock-again" type="button" class="text-btn">Lock</button>
+        </div>
+        <p>Write a note, attach files, or both. Nothing is stored on this page.</p>
+
+        <form id="drop-form">
+          <label class="field">
+            <span>Note</span>
+            <textarea
+              id="note"
+              name="text"
+              rows="6"
+              placeholder="What’s going over to Telegram…"
+            ></textarea>
+          </label>
+
+          <div class="field">
+            <span>Files</span>
+            <label class="well" id="well">
+              <input
+                id="files"
+                name="files"
+                type="file"
+                multiple
+                hidden
+              />
+              <strong>Drop files here</strong>
+              <span>or click to browse · paste an image anytime</span>
+            </label>
+            <ul id="file-list" class="file-list"></ul>
+          </div>
+
+          <button id="send" type="submit" class="btn">Send to Telegram</button>
+          <p id="status" class="status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <script>
+      window.SHARE_CONFIG = { webhookUrl: "", passwordHash: "" };
+    </script>
+    <script src="./config.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
